@@ -1,0 +1,426 @@
+/* =====================================================
+   GLOBAL THEME
+===================================================== */
+:root {
+    --bg-dark-1: #0f1c2e;
+    --bg-dark-2: #1e2f45;
+    --glass: rgba(255,255,255,0.06);
+    --card-white: #f4f6f8;
+
+    --green: #2ecc71;
+    --orange: #f39c12;
+    --red: #e74c3c;
+    --blue: #3498db;
+
+    --shadow-soft: 0 6px 18px rgba(0,0,0,0.35);
+    --shadow-strong: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+/* =====================================================
+   BODY
+===================================================== */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: radial-gradient(circle at top, #2a3442, #0b1220 70%);
+    color: #ffffff;
+}
+
+.hidden { display: none !important; }
+
+/* =====================================================
+   LOGIN SCREEN
+===================================================== */
+#login-section {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #0c1f33, #102a44);
+}
+
+.login-box {
+    width: 360px;
+    padding: 35px;
+    background: var(--glass);
+    backdrop-filter: blur(12px);
+    border-radius: 18px;
+    box-shadow: var(--shadow-strong);
+    text-align: center;
+}
+
+.login-box input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 18px;
+    border: none;
+    border-radius: 10px;
+}
+
+.login-box button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: var(--green);
+    color: #fff;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.login-error {
+    color: #e74c3c;
+    font-size: 0.9em;
+    margin-top: 8px;
+}
+
+/* =====================================================
+   DASHBOARD BACKGROUND
+===================================================== */
+#dashboard-section {
+    min-height: 100vh;
+    background:
+        linear-gradient(rgba(5,10,20,0.85), rgba(5,10,20,0.85)),
+        radial-gradient(circle at top left, #1e293b, #020617 75%);
+    background-attachment: fixed;
+}
+
+/* =====================================================
+   HEADER
+===================================================== */
+header {
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(8px);
+    padding: 20px;
+    text-align: center;
+    box-shadow: var(--shadow-soft);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.2em;
+}
+
+header p {
+    margin-top: 5px;
+    color: #cdd6e3;
+}
+
+/* =====================================================
+   FILTERS PANEL
+===================================================== */
+.filters-container {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    padding: 15px 30px;
+
+    background: rgba(15, 28, 46, 0.75);
+    backdrop-filter: blur(12px);
+
+    border-radius: 14px;
+    margin: 10px 0;
+
+    border: 1px solid rgba(255,255,255,0.15);
+    box-shadow: 0 0 18px rgba(52,152,219,0.25);
+}
+
+.filters-container label {
+    display: flex;
+    flex-direction: column;
+    color: #eaf1ff;
+    font-weight: 600;
+    font-size: 0.85em;
+}
+
+.filters-container select,
+.filters-container input {
+    padding: 8px 12px;
+    border-radius: 10px;
+
+    background: rgba(0,0,0,0.45);
+    color: #ffffff;
+
+    border: 1px solid rgba(255,255,255,0.25);
+    outline: none;
+    margin-top: 4px;
+}
+
+.filters-container input::placeholder {
+    color: rgba(255,255,255,0.6);
+}
+
+.filters-container select:focus,
+.filters-container input:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 10px rgba(52,152,219,0.6);
+}
+/* =====================================================
+   LOCATIONS
+===================================================== */
+#locations {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+}
+
+/* =====================================================
+   LOCATION CARD
+===================================================== */
+.location {
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(14px);
+    border-radius: 18px;
+    padding: 22px;
+    box-shadow: var(--shadow-strong);
+    border: 1px solid rgba(255,255,255,0.18);
+}
+
+.location h2 {
+    margin: 0 0 15px;
+    font-size: 1.6em;
+    border-bottom: 1px solid rgba(255,255,255,0.25);
+    padding-bottom: 10px;
+}
+
+/* =====================================================
+   MACHINES GRID
+===================================================== */
+.machines-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+}
+
+/* =====================================================
+   MACHINE CARD
+===================================================== */
+.machine {
+    border-radius: 16px;
+    padding: 16px;
+    background: linear-gradient(145deg, #f9fafb, #e5e7eb);
+    color: #222;
+    box-shadow: var(--shadow-soft);
+    transition: 0.35s;
+    position: relative;
+}
+
+.machine:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-strong);
+}
+
+.machine h3 {
+    margin: 0 0 10px;
+    color: #1e2f45;
+}
+
+/* =====================================================
+   MACHINE STATUS GLOW
+===================================================== */
+.machine.status-running { box-shadow: 0 0 18px rgba(46,204,113,0.45); }
+.machine.status-paused  { box-shadow: 0 0 18px rgba(243,156,18,0.45); }
+.machine.status-stopped { box-shadow: 0 0 18px rgba(231,76,60,0.45); }
+.machine.status-completed { box-shadow: 0 0 18px rgba(52,152,219,0.45); }
+.machine.status-free { box-shadow: 0 0 18px rgba(189,195,199,0.45); }
+
+/* =====================================================
+   JOB CARD
+===================================================== */
+.job-card {
+    background: #e9ecef;
+    border-radius: 12px;
+    padding: 12px;
+    margin-top: 12px;
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.12);
+}
+
+.job-card p {
+    margin: 3px 0;
+    font-size: 0.85em;
+}
+
+/* =====================================================
+   PROGRESS BAR
+===================================================== */
+.progress-bar-container {
+    width: 100%;
+    height: 10px;
+    background: #cfd4da;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 8px;
+}
+
+.progress-bar {
+    height: 100%;
+    transition: width 0.5s;
+}
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+.btn {
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 2px;
+}
+
+.btn.start { background:#19de6b; color:white; }
+.btn.pause { background:#f39c12; color:white; }
+.btn.stop  { background:#e74c3c; color:white; }
+.btn.edit  { background:#3498db; color:white; }
+.btn.create-wo, .btn.sync-wo { background:#3498db; color:white; }
+
+/* =====================================================
+   ALERTS PANEL
+===================================================== */
+.alerts-container {
+    margin: 10px;
+    padding: 10px;
+    background: #fff3cd;
+    border-left: 5px solid #ffc107;
+    min-height: 30px;
+    color: #856404;
+    font-weight: bold;
+    border-radius: 6px;
+}
+
+/* =====================================================
+   NEXT JOBS & PRODUCTION LOGS TABLE
+===================================================== */
+.table-wrapper {
+    overflow-x: auto;
+}
+
+.dashboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(255,255,255,0.05);
+    margin-bottom: 20px;
+}
+
+.dashboard-table th, .dashboard-table td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    font-size: 0.9em;
+}
+
+/* =====================================================
+   FOOTER
+===================================================== */
+footer {
+    margin-top: 40px;
+    background: rgba(0,0,0,0.45);
+    padding: 14px;
+    text-align: center;
+    font-size: 0.9em;
+    color: #cdd6e3;
+}
+
+/* =====================================================
+   METRICS MODAL
+===================================================== */
+#metrics-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+#metrics-modal .metrics-content {
+    background: #f4f6f8;
+    color: #222;
+    border-radius: 18px;
+    padding: 20px 30px;
+    width: 90%;
+    max-width: 1000px;
+    max-height: 90%;
+    overflow-y: auto;
+    box-shadow: var(--shadow-strong);
+}
+
+#metrics-modal th, #metrics-modal td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+    font-size: 0.85em;
+}
+
+#metrics-modal button {
+    margin: 5px;
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+@media(max-width:768px){
+    header h1 { font-size:1.7em; }
+    .machines-grid { grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); }
+    #metrics-modal .metrics-content { width: 95%; }
+}
+
+@media(max-width:480px){
+    #locations { padding:15px; }
+    header h1 { font-size:1.4em; }
+}
+
+/* =====================================================
+   PRODUCTION HISTORY HIDDEN
+===================================================== */
+.history-card {
+    display: none !important;
+}
+/* =====================================================
+   DRAG & DROP HIGHLIGHTS
+===================================================== */
+
+/* Machine card being hovered by draggable job */
+.machine.drag-hover {
+    outline: 3px dashed #3498db;
+    box-shadow: 0 0 20px rgba(52,152,219,0.6);
+    transform: translateY(-4px);
+    transition: 0.25s all ease-in-out;
+}
+
+/* Queued jobs inside machine card */
+.machine .next-job {
+    background: #f1f3f5;
+    border-left: 4px solid #3498db;
+    border-radius: 10px;
+    padding: 8px;
+    margin-top: 6px;
+    font-size: 0.8em;
+    color: #1e2f45;
+    box-shadow: inset 0 0 4px rgba(0,0,0,0.1);
+}
+
+/* Next-job progress bar (optional for queued jobs) */
+.machine .next-job .progress-bar-container {
+    height: 6px;
+    margin-top: 4px;
+}
+
+.machine .next-job .progress-bar {
+    height: 100%;
+    background-color: #3498db;
+    transition: width 0.5s;
+}
+
+/* Smooth transition for all machine card changes */
+.machine, .machine .job-card, .machine .next-job {
+    transition: all 0.35s ease-in-out;
+}

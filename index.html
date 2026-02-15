@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tassne Alladaen – Live Production Dashboard</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="app">
+    <!-- ================= LOGIN ================= -->
+    <div id="login-section">
+        <div class="login-box">
+            <img
+                src="https://tacogroup.net/wp-content/uploads/2024/05/cropped-taco-Logo-300x73.png"
+                width="140"
+                alt="Taco Group Logo"
+            >
+            <br><br>
+            <form id="login-form" autocomplete="off">
+                <input type="text" id="username" placeholder="Username" required aria-label="Username">
+                <input type="password" id="password" placeholder="Password" required aria-label="Password">
+                <button type="submit" aria-label="Login">Login</button>
+                <div id="login-error" class="login-error" aria-live="polite"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ================= DASHBOARD ================= -->
+    <div id="dashboard-section" class="hidden">
+
+        <!-- HEADER -->
+        <header>
+            <h1>Tassne Alladaen Company</h1>
+            <p><b>Live Production Monitoring</b></p>
+            <button id="btn-view-metrics" class="btn" aria-label="View production metrics">View Metrics</button>
+            <button id="btn-logout" class="btn" aria-label="Logout">Logout</button>
+        </header>
+
+        <!-- ALERT PANEL -->
+        <div id="alerts" class="alerts-container" aria-live="assertive"></div>
+
+        <!-- FILTERS PANEL -->
+        <section id="filters" class="filters-container">
+            <label>
+                Location:
+                <select id="filter-location" aria-label="Filter by location">
+                    <option value="all">All</option>
+                </select>
+            </label>
+            <label>
+                Status:
+                <select id="filter-status" aria-label="Filter by status">
+                    <option value="all">All</option>
+                    <option value="free">Free</option>
+                    <option value="running">Running</option>
+                    <option value="paused">Paused</option>
+                    <option value="stopped">Stopped</option>
+                    <option value="completed">Completed</option>
+                </select>
+            </label>
+            <label>
+                Search:
+                <input type="text" id="search-machine" placeholder="Machine or Work Order" aria-label="Search machine or work order">
+            </label>
+        </section>
+
+        <!-- MAIN CONTENT -->
+        <main>
+            <!-- Locations & Machines -->
+            <section id="locations"></section>
+
+            <!-- ================= ADMIN ERPNext WORK ORDERS ================= -->
+            <section id="admin-erp-section" style="display:none; padding:20px; border:1px solid #ccc; margin:10px;">
+                <h2>ERPNext Work Orders (Admin)</h2>
+                <div class="table-wrapper">
+                    <table id="erp-workorders-table" class="dashboard-table" aria-label="ERPNext Work Orders">
+                        <caption>ERPNext Work Orders</caption>
+                        <thead>
+                            <tr>
+                                <th>Work Order ID</th>
+                                <th>Status</th>
+                                <th>Pipe Size</th>
+                                <th>Quantity</th>
+                                <th>Produced</th>
+                                <th>Location</th>
+                                <th>Assigned Machine</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </section>
+
+<div id="machine-123" class="machine" data-id="123" data-location="Modan">
+
+            <!-- NEXT JOB / ETA PANEL -->
+            <section id="next-jobs">
+                <h3>Next Jobs per Location</h3>
+                <div class="table-wrapper">
+                    <table class="dashboard-table" aria-label="Next jobs queue">
+                        <caption>Next Jobs Queue</caption>
+                        <thead>
+                            <tr>
+                                <th>Location</th>
+                                <th>Machine</th>
+                                <th>Work Order</th>
+                                <th>Pipe Size</th>
+                                <th>Total Qty</th>
+                                <th>Produced Qty</th>
+                                <th>ETA (sec)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="next-jobs-table"></tbody>
+                    </table>
+                </div>
+            </section>
+<section id="production-logs" style="display:none;">
+    <h3>Recent Production Logs</h3>
+    <div class="table-wrapper">
+        <table class="dashboard-table" aria-label="Recent production logs">
+            <caption>Recent Production Logs</caption>
+            <thead>
+                <tr>
+                    <th>Machine ID</th>
+                    <th>Work Order</th>
+                    <th>Pipe Size</th>
+                    <th>Produced Qty</th>
+                    <th>Timestamp</th>
+                </tr>
+            </thead>
+            <tbody id="logs-table"></tbody>
+        </table>
+    </div>
+</section>
+
+
+        <!-- METRICS MODAL -->
+        <div id="metrics-modal" class="hidden" role="dialog" aria-modal="true" aria-labelledby="metrics-title">
+            <div class="metrics-content">
+                <h3 id="metrics-title">Production Metrics</h3>
+                <div class="table-wrapper">
+                    <table id="metrics-table" class="dashboard-table" aria-label="Production metrics">
+                        <caption>Production Metrics</caption>
+                        <thead>
+                            <tr>
+                                <th>Location</th>
+                                <th>Machine</th>
+                                <th>WO</th>
+                                <th>Pipe Size</th>
+                                <th>Produced Qty</th>
+                                <th>Target Qty</th>
+                                <th>Progress %</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <button id="btn-export-csv" class="btn" aria-label="Export metrics as CSV">Export CSV</button>
+                <button id="btn-close-metrics" class="btn" aria-label="Close metrics modal">Close</button>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <footer>
+            © 2026 Tassne Alladaen Company | Live Production Dashboard
+        </footer>
+
+    </div>
+</div>
+
+<!-- FINAL SCRIPT -->
+<script src="script.js" defer></script>
+<script>
+    // Logout button functionality
+    document.addEventListener("click", function(e){
+        const btn = e.target.closest("#btn-logout");
+        if(btn){
+            if(confirm("Are you sure you want to logout?")){
+                logout(); // calls logout() from script.js
+            }
+        }
+    });
+
+    // ================== Admin ERPNext Work Orders ==================
+    const isAdmin = true; // Replace this with your real admin check
+
+    if(isAdmin){
+        document.getElementById('admin-erp-section').style.display = 'block';
+
+        const ws = new WebSocket(`ws://${window.location.host}/ws/dashboard`);
+
+        ws.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            const workOrders = data.work_orders || [];
+
+            const tbody = document.querySelector("#erp-workorders-table tbody");
+            tbody.innerHTML = "";
+
+            workOrders.forEach(wo => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td>${wo.id || "-"}</td>
+                    <td>${wo.status || "-"}</td>
+                    <td>${wo.pipe_size || "-"}</td>
+                    <td>${wo.qty || 0}</td>
+                    <td>${wo.produced_qty || 0}</td>
+                    <td>${wo.location || "-"}</td>
+                    <td>${wo.machine_id || "-"}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        };
+
+        ws.onopen = () => console.log("✅ Admin ERPNext WS connected");
+        ws.onerror = (err) => console.error("❌ ERPNext WS error", err);
+    }
+</script>
+
+<link rel="stylesheet" href="/static/style.css">
+<script src="/static/script.js"></script>
+
+</body>
+</html>
